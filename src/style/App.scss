@@ -1,17 +1,27 @@
 body {
   text-align: center;
   background-color: #282c34;
-  align-items: center;
   font-family: Arial, Helvetica, sans-serif;
   color: #fff;
 }
 
 .pokemon-card {
+  position: relative;
+  left: 50%;
+  transform: translate(-50%);
+  background-color: #414c61;
   border: 2px solid #bbb;
   border-radius: 20px;
   width: 300px;
+  margin-top: 10px;
+  margin-bottom: 30px;
   
   img{
     width: 200px;
   }
+}
+
+.search-input {
+  width: 150px;
+
 }
