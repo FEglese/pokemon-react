@@ -13,14 +13,31 @@ type Props = {
 
 function PokemonCard(props : Props) {
   const [pokemon, setPokemon] = useState(new pokemonModel([]));
+  const [isLoading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   useEffect(()=>{
-    fetchPokemon(props.id).then(res => setPokemon(res));
-    },
-    [props.id]
-  )
+    fetchPokemon(props.id)
+    },[props.id]
+  );
  
-  if (pokemon.name){
+  if (isLoading) {
+    return (
+      <div className="pokemon-card">
+        <h2>Loading!</h2>
+      </div>
+    )
+  }
+  else if (error != null)
+  {
+    return (
+      <div className="pokemon-card">
+        <h2>No Pokemon Found!</h2>
+      </div>
+    )
+  }
+  else
+  {
     return (
       <div className="pokemon-card">
         <h2>{capFirstLetter(pokemon.name)}</h2>
@@ -29,23 +46,24 @@ function PokemonCard(props : Props) {
         <img src={pokemon.imageUrl} alt='Pokemon'></img>
       </div>
     );
-  } else {
-    return (
-      <div className="pokemon-card">
-        <h2>Pokemon not found</h2>
-      </div>
-    );
+  }
+
+  function capFirstLetter(input: string): string {
+    return input.charAt(0).toUpperCase() + input.slice(1)
   }
   
-}
-
-function capFirstLetter(input: string): string {
-  return input.charAt(0).toUpperCase() + input.slice(1)
-}
-
-async function fetchPokemon(id: number): Promise<pokemonModel>{
-  const pokemon = await getPokemon(id);
-  return pokemon;
+  async function fetchPokemon(id: number): Promise<any>{
+    try {
+      setLoading(true);
+      await getPokemon(id).then(res => setPokemon(res));
+      setError(null);
+    } catch(e) {
+      console.log(e);
+      setError(e);
+    } finally{
+      setLoading(false);
+    }
+  }
 }
 
 export default PokemonCard;

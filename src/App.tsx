@@ -12,7 +12,6 @@ function App() {
   const [pokemonId, setPokemonId] = useState(0);
 
   const handleSearchChange = (e: any) => {
-    console.log('change');
     setSearchTerm(e.target.value);
     if (isNumber(e.target.value)){
       setPokemonId(e.target.value);
