@@ -1,11 +1,8 @@
 {
-  "short_name": "Pokemon",
-  "name": "React pokemon app to show pokemon details",
-  "icons": [
-    
-  ],
-  "start_url": ".",
-  "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+	"short_name": "Pokemon",
+	"name": "React pokemon app to show pokemon details",
+	"start_url": ".",
+	"display": "standalone",
+	"theme_color": "#000000",
+	"background_color": "#ffffff"
 }
