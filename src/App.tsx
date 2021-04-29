@@ -1,5 +1,5 @@
 // npm 
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 // Components
 import PokemonCard from './components/pokemonCard';
@@ -24,18 +24,15 @@ function App() {
 
   return (
     <div className="App">
-     <PokemonCard
-      id={pokemonId}
-     />
-
-    <input
-      type="text"
-      className="search-input"
-      placeholder="Pokemon ID"
-      value={searchTerm}
-      onChange={handleSearchChange}
-    />
-
+      <PokemonCard
+        id={pokemonId} />
+        
+      <input
+        type="text"
+        className="search-input"
+        placeholder="Pokemon ID"
+        value={searchTerm}
+        onChange={handleSearchChange} />
     </div>
   );
 }

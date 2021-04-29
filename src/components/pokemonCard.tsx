@@ -1,5 +1,5 @@
 // npm
-import React, {useEffect, useState} from 'react';
+import {useEffect, useState} from 'react';
 
 // Models
 import pokemonModel from '../model/pokemon';
@@ -11,13 +11,13 @@ type Props = {
   id: number,
 }
 
-function PokemonCard(props : Props) {
+const PokemonCard = (props : Props) => {
   const [pokemon, setPokemon] = useState(new pokemonModel([]));
   const [isLoading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
   useEffect(()=>{
-    fetchPokemon(props.id)
+    fetchPokemon(props.id);
     },[props.id]
   );
  
@@ -44,6 +44,8 @@ function PokemonCard(props : Props) {
         <p>Height: {pokemon.height}</p>
         <p>Weight: {pokemon.weight}</p>
         <img src={pokemon.imageUrl} alt='Pokemon'></img>
+        <br />
+        <button>View more details</button>
       </div>
     );
   }
@@ -52,17 +54,20 @@ function PokemonCard(props : Props) {
     return input.charAt(0).toUpperCase() + input.slice(1)
   }
   
-  async function fetchPokemon(id: number): Promise<any>{
-    try {
-      setLoading(true);
-      await getPokemon(id).then(res => setPokemon(res));
-      setError(null);
-    } catch(e) {
-      console.log(e);
-      setError(e);
-    } finally{
-      setLoading(false);
-    }
+  async function fetchPokemon(id: number): Promise<void>{
+    setLoading(true);
+    setError(null);
+
+    return getPokemon(id)
+      .then((res) => {
+        setPokemon(res)
+      })
+      .catch((e) => {
+        setError(e);
+      })
+      .finally(() => {
+        setLoading(false)
+      });
   }
 }
 
