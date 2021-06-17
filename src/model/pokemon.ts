@@ -1,20 +1,14 @@
-class pokemonModel {
-	id: number;
+interface pokemon {
+	idz: number;
 	name: string;
 	height: number;
 	weight: number;
-	imageUrl: string;
+	sprites: spriteType;
 	moves: any;
-
-	constructor(input: any) {
-		this.id = input?.id ?? 0;
-		this.name = input?.name ?? "";
-		this.height = input?.height ?? 0;
-		this.weight = input?.weight ?? 0;
-		this.imageUrl = input?.sprites?.front_default ?? "";
-
-		this.moves = "";
-	}
 }
 
-export default pokemonModel;
+interface spriteType {
+	front_default: string;
+}
+
+export default pokemon;

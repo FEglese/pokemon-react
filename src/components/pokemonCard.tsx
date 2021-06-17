@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 
 // Models
-import pokemonModel from "../model/pokemon";
+import pokemon from "../model/pokemon";
 
 // Services
 import getPokemon from "../services/getPokemon";
@@ -12,7 +12,7 @@ type Props = {
 };
 
 const PokemonCard = (props: Props) => {
-	const [pokemon, setPokemon] = useState(new pokemonModel([]));
+	const [myPokemon, setPokemon] = useState<pokemon>();
 	const [isLoading, setLoading] = useState(false);
 	const [error, setError] = useState(null);
 
@@ -35,12 +35,13 @@ const PokemonCard = (props: Props) => {
 	} else {
 		return (
 			<div className="pokemon-card">
-				<h2>{capFirstLetter(pokemon.name)}</h2>
-				<p>Height: {pokemon.height}</p>
-				<p>Weight: {pokemon.weight}</p>
-				<img src={pokemon.imageUrl} alt="Pokemon"></img>
+				<h2>{capFirstLetter(myPokemon?.name ?? "")}</h2>
+				<p>Height: {myPokemon?.height}</p>
+				<p>Weight: {myPokemon?.weight}</p>
+				<img
+					src={myPokemon?.sprites?.front_default}
+					alt={myPokemon?.name + "'s Photo not found"}></img>
 				<br />
-				<button>View more details</button>
 			</div>
 		);
 	}
@@ -53,7 +54,7 @@ const PokemonCard = (props: Props) => {
 		setLoading(true);
 		setError(null);
 
-		return getPokemon(id)
+		getPokemon(id)
 			.then((res) => {
 				setPokemon(res);
 			})
